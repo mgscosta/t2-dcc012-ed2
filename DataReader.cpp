@@ -27,7 +27,7 @@ vector<CoordinatesData*> DataReader::readCoordinatesDatafromFile(string filename
     if(file.is_open())
     {
         getline(file,line);
-        while (getline(file,line));
+        while(getline(file,line))
         {
             istringstream dataFromLine(line);
             string stateCode,cityCode,cityName,latitude,longtude,capital;

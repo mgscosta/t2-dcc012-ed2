@@ -1,5 +1,10 @@
 #include "QuadTree.h"
 
+QuadTree::QuadTree()
+{
+    this->root = nullptr;
+}
+
 QuadTree::QuadTree(CoordinatesData cityRoot)
 {
     this->root = new QuadTreeNode(cityRoot);
@@ -26,71 +31,130 @@ QuadTree::~QuadTree()
     this->dealocateNodes(this->root);
 }
 
-QuadTreeNode* QuadTree::getDirection(CoordinatesData city,QuadTreeNode *currentNode)
+string QuadTree::getDirection(CoordinatesData city,QuadTreeNode *currentNode)
 {
     if(city.getLatitude() < currentNode->getLatitude())
     {
         if(city.getLongtude() < currentNode->getLongtude())
         {
-            return currentNode->getSouthwest();
+            return "SW";
         }
         else
         {
-            return currentNode->getNorthwest();
+            return "NW";
         }
     }
     else
     {
         if(city.getLongtude() < currentNode->getLongtude())
         {
-            return currentNode->getSoutheast();
+            return "SE";
         }
         else
         {
-            return currentNode->getNortheast();
+            return "NE";
         }
-    }
-}
-
-void QuadTree::auxInsert(CoordinatesData city,QuadTreeNode *father,QuadTreeNode *currentNode)
-{
-    if(currentNode == nullptr)
-    {
-        currentNode = new QuadTreeNode(father,city);
-    }
-    else
-    {
-        QuadTreeNode *direction = this->getDirection(city,currentNode);
-        auxInsert(city,currentNode,direction);
     }
 }
 
 void QuadTree::insert(CoordinatesData city)
 {
-    this->auxInsert(city,nullptr,this->root);
-}
-
-bool QuadTree::auxSearch(CoordinatesData city,QuadTreeNode *currentNode)
-{
-    if(currentNode == nullptr)
+    if(this->root == nullptr)
     {
-        return false;
+        this->root = new QuadTreeNode(city);
     }
     else
     {
-        if(city.getCityCode() == currentNode->getCity().getCityCode())
+        QuadTreeNode *node = this->root;
+        QuadTreeNode *father = this->root->getFather();
+        string direction; 
+        while (node != nullptr && city.getCityCode() != node->getCity().getCityCode())
         {
-            return true;
+            direction = this->getDirection(city,node);
+            father = node;
+            if(direction == "SW")
+            {
+                node = node->getSouthwest();
+            }
+            else if(direction == "NW")
+            {
+                node = node->getNorthwest();
+            }
+            else if(direction == "SE")
+            {
+                node = node->getSoutheast();
+            }
+            else
+            {
+                node = node->getNortheast();
+            }
+        }
+        if(node == nullptr)
+        {
+            if(direction == "SW")
+            {
+                father->setSouthwest(new QuadTreeNode(father,city));
+            }
+            else if(direction == "NW")
+            {
+                father->setNorthwest(new QuadTreeNode(father,city));
+            }
+            else if(direction == "SE")
+            {
+                father->setSoutheast(new QuadTreeNode(father,city));
+            }
+            else
+            {
+                father->setNortheast(new QuadTreeNode(father,city));
+            }
         }
         else
         {
-            QuadTreeNode *direction = this->getDirection(city,currentNode);
-            auxSearch(city,direction);
+            cout << "Cidade já presente na árvore" << endl;
         }
     }
 }
 
 bool QuadTree::search(CoordinatesData city)
 {
-    return this->auxSearch(city,this->root);
+    if(this->root == nullptr)
+    {
+        return false;
+    }
+    else
+    {
+        QuadTreeNode *node = this->root;
+        QuadTreeNode *father = this->root->getFather();
+        string direction; 
+        while (node != nullptr && city.getCityCode() != node->getCity().getCityCode())
+        {
+            direction = this->getDirection(city,node);
+            father = node;
+            if(direction == "SW")
+            {
+                node = node->getSouthwest();
+            }
+            else if(direction == "NW")
+            {
+                node = node->getNorthwest();
+            }
+            else if(direction == "SE")
+            {
+                node = node->getSoutheast();
+            }
+            else
+            {
+                node = node->getNortheast();
+            }
+        }
+        
+        if(node == nullptr)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }   
+    }
 }

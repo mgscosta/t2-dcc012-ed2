@@ -11,10 +11,10 @@ int main()
     vector<CoordinatesData*> data;
     DataReader reader;
     data = reader.readCoordinatesDatafromFile("brazil_cities_coordinates.csv");
-    QuadTree *tree = new QuadTree(*data[0]);
-    for(int i = 1;i < data.size();i++)
+    QuadTree tree;
+    for(int i = 0;i < data.size();i++)
     {
-        tree->insert(*data[i]);
+        tree.insert(*data[i]);
     }
     
     return 0;
