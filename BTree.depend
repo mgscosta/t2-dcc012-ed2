@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1614272494 source:c:\users\user\documents\c++\btree\main.cpp
+	<iostream>
+	"NohB.h"
+	"BTree.h"
+
+1614703534 c:\users\user\documents\c++\btree\nohb.h
+
+1614708874 c:\users\user\documents\c++\btree\btree.h
+	"NohB.h"
+
