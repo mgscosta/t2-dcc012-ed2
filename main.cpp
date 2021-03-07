@@ -12,20 +12,29 @@ int main()
   DataReader reader;
   Hash hashTable;
   vector <HashItem*> aux;
-
-   vector<string> teste;
+ 
   while (menu == true)
   {
     cout << "Digite a opção" << endl;
     cout << "[1] - Etapa 2" << endl;
-    cout << teste[0] << endl;
+    cin >> option;
     switch (option)
     {
     case 1:
-      aux = reader.readPreProcessedCovidDataFromFile("brazil_covid19_cities_processado.csv");
-      for(int i =0; i < hashTable.getItemVector().size(); i++) {
-             hashTable.insert(*(aux[i]));
-      }
+       aux = reader.readPreProcessedCovidDataFromFile("brazil_covid19_cities_processado.csv");
+      // for(int i =0; i < hashTable.getItemVector().size(); i++) {
+      //         hashTable.insert(aux[i]);
+      // }
+       // Início Teste ----------
+      cout << "KEY: " << aux[0]->getKey() << "VALUE: "<< aux[0]->getValue().getData() << endl;
+      hashTable.insert(aux[0]);
+    //  cout << "AFTERINSERT KEY: " << hashTable.getItemVector()[876]->getKey() << "VALUE: "<< hashTable.getItemVector()[876]->getValue().getData() << endl;
+      hashTable.insert(aux[24]);
+      hashTable.print();
+      cout << hashTable.search(aux[0]->getKey()) << endl;;
+      cout << hashTable.search(aux[24]->getKey()) << endl;
+       // Fim Teste    ----------
+
       menu = false;
       break;
 

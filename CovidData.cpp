@@ -12,6 +12,11 @@ CovidData::CovidData()
 
 CovidData::~CovidData(){}
 
+string CovidData::getData() {
+    return this->date + this->stateInitials + this->cityName + this->cityCode + to_string(this->caseCount) + to_string(this->deathCount);
+    
+}
+
 string CovidData::getDate()
 {
     return this->date;

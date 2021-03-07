@@ -1,3 +1,6 @@
+#ifndef HASH_H
+#define HASH_H
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -5,7 +8,7 @@
 #include <vector>
 #include "HashItem.h"
 
-#define CAPACITY 1431490 // nº de linhas do arquivo .csv
+#define CAPACITY 5000 // nº de linhas do arquivo .csv
 
 using namespace std;
 
@@ -28,14 +31,14 @@ public:
   ~Hash();
 
   /**
-     * Função hash djb32
+     * Função hash
      * */
   unsigned long hash(string key);
 
   /**
      * Insere item na tabela Hash
      * */
-  void insert(HashItem item);
+  void insert(HashItem * item);
 
   /**
      * Busca um valor na tabela Hash usando sua chave e o retorna caso o encontre
@@ -50,7 +53,12 @@ public:
  /**
   * Trata colisão
   */
- void handleColision();
+ void handleColision(int index);
+  
+  /**
+   * Printa tabela
+   * */
+  void print();
   /**
    * Getters e Setters Item
    * */
@@ -63,3 +71,5 @@ public:
    * */
   void incrementCount();
 };
+
+#endif

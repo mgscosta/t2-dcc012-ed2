@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include<cstdlib>
 
 using namespace std;
 
@@ -34,7 +35,12 @@ public:
      * 
     */
     ~CovidData();
-
+     /**
+     * Retorna concatenacao dos dados
+     * 
+     * @return string
+    */
+    string getData();
     /**
      * Retorna a data de ocorrência do relatório
      * 

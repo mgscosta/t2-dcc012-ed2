@@ -1,3 +1,5 @@
+#ifndef HASHITEM_H
+#define HASHITEM_H
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -39,3 +41,5 @@ class HashItem {
 
 
 };
+
+#endif

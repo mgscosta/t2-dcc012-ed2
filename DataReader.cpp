@@ -1,5 +1,9 @@
 #include "DataReader.h"
 
+DataReader::DataReader(){}
+
+DataReader::~DataReader(){}
+
 vector<HashItem*> DataReader::readPreProcessedCovidDataFromFile(string filename)
 {
     ifstream file;

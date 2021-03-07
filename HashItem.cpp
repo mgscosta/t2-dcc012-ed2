@@ -18,7 +18,7 @@ string HashItem::getKey() {
 
 
 void HashItem::setKey(string new_key) {
-  this->key = key;
+  this->key = new_key;
 }
 
   CovidData HashItem::getValue() {

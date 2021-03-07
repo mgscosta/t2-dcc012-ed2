@@ -1,3 +1,6 @@
+#ifndef DATAREADER_H
+#define DATAREADER_H
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -36,3 +39,4 @@ public:
   
 };
 
+#endif
