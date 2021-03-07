@@ -8,38 +8,44 @@
 
 #include "CovidData.h"
 
-
 using namespace std;
 
-class HashItem {
-  private:
+class HashItem
+{
+private:
   string key;
   CovidData value;
+   long next;
 
-  public:
-    /**
+public:
+  /**
      * Constructor
      * */
-    HashItem(string key, CovidData value);
+  HashItem(string key, CovidData value);
 
-    /**
+  /**
      * Destructor
      * */
-    ~HashItem();
+  ~HashItem();
 
   /**
    * Getter & Setter Key
    * */
-    string getKey();
-    void setKey(string new_key);
+  string getKey();
+  void setKey(string new_key);
 
   /**
    * Getter & Setter Value
    * */
-    CovidData getValue();
-    void setValue(CovidData new_value);
+  CovidData getValue();
+  void setValue(CovidData new_value);
 
+  /**
+ * Getter & Setter next
+ */
+  long getNext();
 
+  void setNext(long next);
 };
 
 #endif

@@ -28,3 +28,11 @@ void HashItem::setKey(string new_key) {
 void HashItem::setValue(CovidData new_value) {
   this->value = new_value;
 }
+
+ long HashItem::getNext(){
+    return this->next;
+  }
+
+  void HashItem::setNext(long next) {
+    this->next = next;
+  } 

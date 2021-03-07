@@ -8,7 +8,7 @@
 #include <vector>
 #include "HashItem.h"
 
-#define CAPACITY 5000 // nº de linhas do arquivo .csv
+#define CAPACITY 1431490 // nº de linhas do arquivo .csv
 
 using namespace std;
 
@@ -51,9 +51,9 @@ public:
   void del(HashItem item);
 
  /**
-  * Trata colisão
+  * Trata colisão utilizando o método de encadeamento coalescido
   */
- void handleColision(int index);
+ void handleColision(HashItem* item, int index);
   
   /**
    * Printa tabela
