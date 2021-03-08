@@ -8,7 +8,6 @@ Hash::Hash()
   for (int i = 0; i < this->size; i++)
   {
     this->items[i] = NULL;
-    this->items[i]->setNext(-2);
   }
 }
 
@@ -93,12 +92,14 @@ void Hash::handleColision(HashItem *item, int index)
   cout << "Handling colision..." << endl;
   unsigned long i = index + 1;
 
-  while (this->items[i] == NULL)
+  while (this->items[i] != NULL)
   {
     i++;
   }
   this->items[index]->setNext(i);
+  cout << "INDICE DA COLISAO: "<< index << endl;
   this->items[i] = item;
+  cout << "NOVO INDICE POS COLISAO: " << i << endl;
   this->items[i]->setNext(-1);
 }
 

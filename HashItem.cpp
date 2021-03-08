@@ -4,6 +4,7 @@
 HashItem::HashItem(string key, CovidData value){
   this->key = key;
   this->value = value;
+  this->next = -2;
 }
 
 // Override
