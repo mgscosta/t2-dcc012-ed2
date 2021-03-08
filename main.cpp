@@ -22,7 +22,7 @@ int main()
     {
     case 1:
         aux = reader.readPreProcessedCovidDataFromFile("brazil_covid19_cities_processado.csv");
-      for(int i =0; i < 15; i++) {
+      for(int i =0; i < aux.size(); /*test i < 15*/ i++) {
               hashTable.insert(aux[i]);
       }
        // Início Teste ----------

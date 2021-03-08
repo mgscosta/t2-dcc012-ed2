@@ -15,16 +15,27 @@ Hash::~Hash() {}
 
 unsigned long Hash::hash(string key)
 {
-  unsigned long i = 0;
-  for (int j = 0; key[j]; j++)
-    i += key[j];
-  return i % CAPACITY;
+  // função original (kmod)
+  // unsigned long i = 0;
+  // for (int j = 0; key[j]; j++)
+  //   i += key[j];
+  // return i % CAPACITY;
+  // ----------------------
+  // função djb2
+  unsigned long hash = 5381;
+  int c;
+  for (int i =0; i < key.size(); i++) {
+    c = (int) key[i];
+    hash = ((hash << 5) + hash) + c;  /* hash * 33 + c */
+  }
+   
+  return hash % CAPACITY;
 }
 
 void Hash::insert(HashItem *item)
 {
   unsigned long index = hash(item->getKey());
-  cout << "INSERINDO A CHAVE: " << item->getKey() << "NO INDEX: " << index << endl;
+ // cout << "INSERINDO A CHAVE: " << item->getKey() << "NO INDEX: " << index << endl;
 
   if (this->items[index] == NULL)
   { // posição vazia
@@ -57,12 +68,14 @@ string Hash::search(string key)
     }
     else
     {
-      if(item->getNext() != -1 && item->getNext() != -2) {
-      next = item->getNext();
-      item = this->items[next];
-      return item->getKey();
+      if (item->getNext() != -1 && item->getNext() != -2)
+      {
+        next = item->getNext();
+        item = this->items[next];
+        return item->getKey();
       }
-      else {
+      else
+      {
         return NULL;
       }
     }
@@ -73,6 +86,27 @@ string Hash::search(string key)
   }
 }
 
+void Hash::del(HashItem item)
+{
+}
+
+void Hash::handleColision(HashItem *item, int index)
+{
+  cout << "Handling colision..." << endl;
+  unsigned long i = this->size - 1;
+
+  while (this->items[i] != NULL)
+  {
+    i--;
+  }
+  
+  this->items[index]->setNext(i);
+  cout << "INDICE DA COLISAO: " << index << endl;
+  this->items[i] = item;
+  cout << "NOVO INDICE POS COLISAO: " << i << endl;
+  this->items[i]->setNext(-1);
+}
+
 void Hash::print()
 {
   cout << "Tabela Hash" << endl;
@@ -81,26 +115,10 @@ void Hash::print()
   {
     if (this->items[i] != NULL)
     {
-      cout << "Index: " << i << "Key: " << this->items[i]->getKey() << "Value: " << this->items[i]->getValue().getData() << endl;
+      cout << "Index: " << i << "Key: " << this->items[i]->getKey() << "Value: " << this->items[i]->getValue().getData() << " Next: " << this->items[i]->getNext() << endl;
     }
   }
   cout << "-------------------" << endl;
-}
-
-void Hash::handleColision(HashItem *item, int index)
-{
-  cout << "Handling colision..." << endl;
-  unsigned long i = index + 1;
-
-  while (this->items[i] != NULL)
-  {
-    i++;
-  }
-  this->items[index]->setNext(i);
-  cout << "INDICE DA COLISAO: "<< index << endl;
-  this->items[i] = item;
-  cout << "NOVO INDICE POS COLISAO: " << i << endl;
-  this->items[i]->setNext(-1);
 }
 
 vector<HashItem *> Hash::getItemVector()
