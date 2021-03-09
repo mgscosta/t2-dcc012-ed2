@@ -4,20 +4,20 @@
 class NohB
 {
     private:
-    int n; //nÃºmero de chaves
-    NohB **children; //array/vetor de ponteiros que aponta para os filhos
+    int n; //número de chaves
+    NohB **children; //vetor de ponteiros que aponta para os filhos
     int *keys; //array com capacidade para n-1 filhos
-    int maxO; //ordem da Ã¡rvore
+    int maxO; //ordem da árvore
     bool leaf; //verdadeiro se for folha, falso caso contrario
 
     public:
-    NohB(int i_, bool le_af); //construtor
-    NohB *searchNoh(int j_); //busca por nÃ³
-    void trvs(); //
-    void split(int i, NohB *a_); //separa o filho 'a_' do nÃ³ quando ocorre overflow
-    void insertFree(int k_); //insere a chave em nÃ³ antes de ele estar cheio
+    NohB(int in, bool le_af); //construtor
+    NohB *searchNoh(int jn); //busca por nó
+    void cross(); //
+    void split(int i, NohB *a1); //separa o filho 'a1' do nó quando ocorre overflow
+    void inserti(int k1); //insere a chave em nó antes de ele estar cheio
 
-    friend class BTree;
+    friend class ArvB;
 };
 
 #endif // NOHB_H_INCLUDED
