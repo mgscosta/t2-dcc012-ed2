@@ -26,13 +26,7 @@ int main()
               hashTable.insert(aux[i]);
       }
        // Início Teste ----------
-      // cout << "KEY: " << aux[0]->getKey() << "VALUE: "<< aux[0]->getValue().getData() << endl;
-      // hashTable.insert(aux[0]);
-      // cout << "AFTERINSERT KEY: " << hashTable.getItemVector()[876]->getKey() << "VALUE: "<< hashTable.getItemVector()[876]->getValue().getData() << endl;
-      // hashTable.insert(aux[24]);
-      hashTable.print();
-      // cout << hashTable.search(aux[0]->getKey()) << endl;;
-      // cout << hashTable.search(aux[24]->getKey()) << endl;
+      // hashTable.print();
        // Fim Teste    ----------
       menu = false;
       break;

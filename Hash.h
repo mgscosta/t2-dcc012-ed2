@@ -31,32 +31,30 @@ public:
   ~Hash();
 
   /**
-     * Função hash
+     * Função hash djb32 que utiliza as constantes 5381 e 33 para geração de índices na tabela hash.
+     * Possui uma boa distribuição de chaves e velocidade satisfatória. Utiliza-se o % (mod) para limitar os índices entre o
+     * range da tabela (max = CAPACITY).
      * */
   unsigned long hash(string key);
 
   /**
-     * Insere item na tabela Hash
+     * Insere item [chave, valor (Covid Data) e next (ponteiro para o índice onde o item foi rearranjado ou flag)] na tabela Hash
      * */
   void insert(HashItem * item);
 
   /**
-     * Busca um valor na tabela Hash usando sua chave e o retorna caso o encontre
+     * Busca um valor na tabela Hash usando sua chave e o retorna caso o encontre, retornando null em caso negativo.
      * */
   string search(string key);
 
-  /**
- * Deleta um item da tabela Hash
- * */
-  void del(HashItem item);
 
  /**
-  * Trata colisão utilizando o método de encadeamento coalescido
+  * Trata colisão utilizando o método de encadeamento coalescido (sem porão). 
   */
  void handleColision(HashItem* item, int index);
   
   /**
-   * Printa tabela
+   * Printa tabela Hash
    * */
   void print();
   /**

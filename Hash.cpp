@@ -15,12 +15,6 @@ Hash::~Hash() {}
 
 unsigned long Hash::hash(string key)
 {
-  // função original (kmod)
-  // unsigned long i = 0;
-  // for (int j = 0; key[j]; j++)
-  //   i += key[j];
-  // return i % CAPACITY;
-  // ----------------------
   // função djb2
   unsigned long hash = 5381;
   int c;
@@ -86,9 +80,6 @@ string Hash::search(string key)
   }
 }
 
-void Hash::del(HashItem item)
-{
-}
 
 void Hash::handleColision(HashItem *item, int index)
 {
@@ -99,11 +90,11 @@ void Hash::handleColision(HashItem *item, int index)
   {
     i--;
   }
-  
+
   this->items[index]->setNext(i);
-  cout << "INDICE DA COLISAO: " << index << endl;
+ // cout << "INDICE DA COLISAO: " << index << endl;
   this->items[i] = item;
-  cout << "NOVO INDICE POS COLISAO: " << i << endl;
+ // cout << "NOVO INDICE POS COLISAO: " << i << endl;
   this->items[i]->setNext(-1);
 }
 
