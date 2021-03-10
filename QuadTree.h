@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "QuadTreeNode.h"
 #include "CoordinatesData.h"
 
@@ -32,6 +33,25 @@ private:
      * @return string
     */
     string getDirection(CoordinatesData city,QuadTreeNode *currentNode);
+
+    /**
+     * Função auxiliar que imprime todo o conteúdo da Quad Tree em console
+     * 
+     * @param QuadTreeNode* node
+     * @param string [direction]
+     * @return void
+    */
+    void printOnConsole(QuadTreeNode *node,string direction = "");
+
+    /**
+     * Função auxiliar que imprime todo o conteúdo da Quad Tree em arquivo
+     * 
+     * @param ofstream &file
+     * @param QuadTreeNode* node
+     * @param string [direction]
+     * @return void
+    */
+    void printOnArchive(ofstream &file,QuadTreeNode *node,string direction = "");
 public:
     /**
      * Construtor da classe
@@ -67,6 +87,15 @@ public:
      * @return bool
     */
     bool search(CoordinatesData city);
+
+    /**
+     * Função que imprime a Quad Tree, tendo opções de impressão em console ou arquivo
+     * 
+     * @param bool archive
+     * @param string [filename]
+     * @return void
+    */
+    void printTree(bool archive,string filename = "");
 };
 
 #endif

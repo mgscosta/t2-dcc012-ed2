@@ -158,3 +158,66 @@ bool QuadTree::search(CoordinatesData city)
         }   
     }
 }
+
+void QuadTree::printOnConsole(QuadTreeNode *node,string direction /*= ""*/)
+{
+    if(node != nullptr)
+    {
+        printOnConsole(node->getNortheast(),"NE");
+        printOnConsole(node->getNorthwest(),"NW");
+        if(node->getFather() != nullptr)
+        {
+            cout << "Quadrante " << direction << " de " << node->getFather()->getCity().getCityName() << ": ";
+        }
+        else
+        {
+            cout << "Raiz: ";
+        }
+        cout << node->getCity().getStateCode() << "," << node->getCity().getCityCode() << "," << node->getCity().getCityName() << "," << node->getLatitude() << "," << node->getLongtude() << "," << node->getCity().isCapital() << endl;
+        printOnConsole(node->getSouthwest(),"SW");
+        printOnConsole(node->getSoutheast(),"SE");
+    }
+    else
+    {
+        return;
+    }
+}
+
+void QuadTree::printOnArchive(ofstream &file,QuadTreeNode *node,string direction /*= ""*/)
+{
+    if(node != nullptr)
+    {
+        printOnArchive(file,node->getNortheast(),"NE");
+        printOnArchive(file,node->getNorthwest(),"NW");
+        if(node->getFather() != nullptr)
+        {
+            file << "Quadrante " << direction << " de " << node->getFather()->getCity().getCityName() << ": ";
+        }
+        else
+        {
+            file << "Raiz: ";
+        }
+        file << node->getCity().getStateCode() << "," << node->getCity().getCityCode() << "," << node->getCity().getCityName() << "," << node->getLatitude() << "," << node->getLongtude() << "," << node->getCity().isCapital() << endl;
+        printOnArchive(file,node->getSouthwest(),"SW");
+        printOnArchive(file,node->getSoutheast(),"SE");
+    }
+    else
+    {
+        return;
+    }   
+}
+
+void QuadTree::printTree(bool archive,string filename /*= ""*/)
+{
+    if(archive)
+    {
+        ofstream outfile(filename,ios::app);
+        printOnArchive(outfile,this->root);
+        outfile << endl;
+        cout << "Árvore salva em " << filename << endl;
+    }
+    else
+    {
+        printOnConsole(this->root);
+    }
+}
