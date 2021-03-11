@@ -83,7 +83,7 @@ string Hash::search(string key)
 
 void Hash::handleColision(HashItem *item, int index)
 {
-  cout << "Handling colision..." << endl;
+  //cout << "Handling colision..." << endl;
   unsigned long i = this->size - 1;
 
   while (this->items[i] != NULL)
@@ -98,18 +98,36 @@ void Hash::handleColision(HashItem *item, int index)
   this->items[i]->setNext(-1);
 }
 
-void Hash::print()
+void Hash::print(bool archive,string filename/*= ""*/)
 {
-  cout << "Tabela Hash" << endl;
-  cout << "-------------------" << endl;
-  for (int i = 0; i < this->items.size(); i++)
+  if(archive)
   {
-    if (this->items[i] != NULL)
+    ofstream outfile(filename,ios::app);
+    outfile << "Tabela Hash" << endl;
+    outfile << "-------------------" << endl;
+    for (int i = 0; i < this->items.size(); i++)
     {
-      cout << "Index: " << i << "Key: " << this->items[i]->getKey() << "Value: " << this->items[i]->getValue().getData() << " Next: " << this->items[i]->getNext() << endl;
+      if (this->items[i] != NULL)
+      {
+        outfile << "Index: " << i << "Key: " << this->items[i]->getKey() << "Value: " << this->items[i]->getValue().getData() << " Next: " << this->items[i]->getNext() << endl;
+      }
     }
+    outfile << "-------------------" << endl << endl;
+    cout << "Tabela salva em " << filename << endl;
   }
-  cout << "-------------------" << endl;
+  else
+  {
+    cout << "Tabela Hash" << endl;
+    cout << "-------------------" << endl;
+    for (int i = 0; i < this->items.size(); i++)
+    {
+      if (this->items[i] != NULL)
+      {
+        cout << "Index: " << i << "Key: " << this->items[i]->getKey() << "Value: " << this->items[i]->getValue().getData() << " Next: " << this->items[i]->getNext() << endl;
+      }
+    }
+    cout << "-------------------" << endl;
+  }
 }
 
 vector<HashItem *> Hash::getItemVector()

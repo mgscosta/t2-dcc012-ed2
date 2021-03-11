@@ -54,9 +54,12 @@ public:
  void handleColision(HashItem* item, int index);
   
   /**
-   * Printa tabela Hash
+   * Printa tabela Hash, possuindo a opção de imprimir em arquivo ou em console
+   * 
+   * @param bool archive
+   * @param string [filename]
    * */
-  void print();
+  void print(bool archive,string filename = "");
   /**
    * Getters e Setters Item
    * */

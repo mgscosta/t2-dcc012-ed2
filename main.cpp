@@ -4,6 +4,8 @@
 #include "DataReader.h"
 #include "CoordinatesData.h"
 #include "QuadTree.h"
+#include "HashItem.h"
+#include "Hash.h"
 
 using namespace std;
 
@@ -31,6 +33,7 @@ int main(int argc, char const *argv[])
         cout << "Importando arquivo de coordenadas do diretório..." << endl;
         vector<CoordinatesData*> coordinatesData = reader.readCoordinatesDatafromFile(directory + "brazil_cities_coordinates.csv");
         cout << "Importando arquivo de dados da COVID-19 do diretório..." << endl;
+        vector<HashItem*> covidData = reader.readPreProcessedCovidDataFromFile(directory + "brazil_covid19_cities_processado.csv");
 
         if(atoi(argv[2]) == 0)
         {
@@ -40,6 +43,7 @@ int main(int argc, char const *argv[])
                 int option;
                 int n;
                 QuadTree quadTree;
+                Hash hashTable;
                 vector<int> randomIndex;
                 cout << "Menu:" << endl << "1 - Inserção de N cidades da Quad Tree" << endl << "2 - Inserção de N registros na tabela hash" <<
                 endl << "3 - Inserção de N chaves na árvore AVL" << endl << "4 - Inserção de N chaves na árvore B" << endl;
@@ -74,13 +78,23 @@ int main(int argc, char const *argv[])
                 case 2:
                     cout << "Selecione o número de registros a ser inseridos na Tabela Hash: ";
                     cin >> n;
+                    srand(time(NULL));
+                    for(int i = 0; i < n; i++)
+                    {
+                        randomIndex.push_back(rand() % covidData.size());
+                    }
+                    for(int i = 0; i < randomIndex.size();i++)
+                    {
+                        hashTable.insert(covidData[randomIndex[i]]);   
+                    }
+
                     if(n <= 20)
                     {
-
+                        hashTable.print(false);
                     }
                     else
                     {
-                        
+                        hashTable.print(true,directory + "saidasHashTable.txt");   
                     }
                     break;
                 
