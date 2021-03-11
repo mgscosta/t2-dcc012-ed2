@@ -1,4 +1,3 @@
-#include <iostream>
 #include "NoAVL.h"
 
 using namespace std;

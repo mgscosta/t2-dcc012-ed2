@@ -114,6 +114,7 @@ void Hash::print(bool archive,string filename/*= ""*/)
     }
     outfile << "-------------------" << endl << endl;
     cout << "Tabela salva em " << filename << endl;
+    outfile.close();
   }
   else
   {

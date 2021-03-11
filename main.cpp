@@ -6,6 +6,7 @@
 #include "QuadTree.h"
 #include "HashItem.h"
 #include "Hash.h"
+#include "ArvoreAVL.h"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ int main(int argc, char const *argv[])
                 int n;
                 QuadTree quadTree;
                 Hash hashTable;
+                ArvoreAVL avlTree;
                 vector<int> randomIndex;
                 cout << "Menu:" << endl << "1 - Inserção de N cidades da Quad Tree" << endl << "2 - Inserção de N registros na tabela hash" <<
                 endl << "3 - Inserção de N chaves na árvore AVL" << endl << "4 - Inserção de N chaves na árvore B" << endl;
@@ -101,13 +103,23 @@ int main(int argc, char const *argv[])
                 case 3:
                     cout << "Selecione o número de chaves a ser inseridos na Árvore AVL: ";
                     cin >> n;
+                    srand(time(NULL));
+                    for(int i = 0; i < n; i++)
+                    {
+                        randomIndex.push_back(rand() % covidData.size());
+                    }
+                    for(int i = 0; i < randomIndex.size();i++)
+                    {
+                        avlTree.insere(randomIndex[i]);   
+                    }
+
                     if(n <= 20)
                     {
-
+                        avlTree.imprime(false);
                     }
                     else
                     {
-                        
+                        avlTree.imprime(true,directory + "saidasAVLTree.txt");
                     }
                     break;
                 

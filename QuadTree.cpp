@@ -215,6 +215,7 @@ void QuadTree::printTree(bool archive,string filename /*= ""*/)
         printOnArchive(outfile,this->root);
         outfile << endl;
         cout << "Árvore salva em " << filename << endl;
+        outfile.close();
     }
     else
     {

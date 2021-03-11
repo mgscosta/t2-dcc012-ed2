@@ -1,5 +1,9 @@
-
+#ifndef NOAVL_H_INCLUDED
 #define NOAVL_H_INCLUDED
+
+#include <iostream>
+
+using namespace std;
 
 class NoAVL
 {
@@ -21,3 +25,5 @@ public:
     void setFatorBalanceamento(int val);
     int getFatorBalanceamento();
 };
+
+#endif

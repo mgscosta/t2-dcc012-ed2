@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ArvoreAVL.h"
 
 using namespace std;
@@ -235,4 +234,58 @@ void ArvoreAVL::balancearArvore()
     }
 
     fatorBalanciado();
+}
+
+void ArvoreAVL::auxImprimeConsole(NoAVL *no)
+{
+    if(no != NULL)
+    {
+        auxImprimeConsole(no->getEsq());
+        if(no == this->raiz)
+        {
+            cout << "Raiz: ";
+        }
+        cout << no->getInfo() << "," << no->getFatorBalanceamento() << endl;
+        auxImprimeConsole(no->getDir());
+    }
+    else
+    {
+        return;
+    }
+}
+
+void ArvoreAVL::auxImprimeArquivo(ofstream &arq,NoAVL *no)
+{
+    if(no != NULL)
+    {
+        auxImprimeArquivo(arq,no->getEsq());
+        if(no == this->raiz)
+        {
+            arq << "Raiz: ";
+        }
+        arq << no->getInfo() << "," << no->getFatorBalanceamento() << endl;
+        auxImprimeArquivo(arq,no->getDir());
+    }
+    else
+    {
+        return;
+    }
+}
+
+void ArvoreAVL::imprime(bool arquivo,string nomeArquivo/*= ""*/)
+{
+    if(arquivo)
+    {
+        ofstream saida(nomeArquivo,ios::app);
+        saida << "Árvore AVL" << endl << "id,fator de balanceamento" << endl;
+        auxImprimeArquivo(saida,this->raiz);
+        saida << endl;
+        cout << "Árvore salva em " << nomeArquivo << endl;
+        saida.close();
+    }
+    else
+    {
+        cout << "Árvore AVL" << endl << "id,fator de balanceamento" << endl;
+        auxImprimeConsole(this->raiz);
+    }
 }
