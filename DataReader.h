@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 #include "CoordinatesData.h"
+#include "HashItem.h"
+#include "CovidData.h"
 
 using namespace std;
 
@@ -43,6 +45,16 @@ public:
      * @return vector<CoordinatesData*>
     */
     vector<CoordinatesData*> readCoordinatesDatafromFile(string filename);
+
+    /**
+     * Retorna um vector com os dados lidos de cada linha do arquivo pré-processado do Covid-19, a função lê o arquivo ignorando as linhas vazias.
+     * 
+     * @param string fileName
+     * @return vector<CovidData>
+    */
+    vector<HashItem*> readPreProcessedCovidDataFromFile(string filename);
+
+  
 };
 
 #endif
