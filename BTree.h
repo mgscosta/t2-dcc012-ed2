@@ -2,6 +2,7 @@
 #define BTREE_H
 
 #include <iostream>
+#include <fstream>
 #include "BTreeNode.h"
 
 using namespace std;
@@ -28,11 +29,11 @@ public:
     ~BTree();
     
     /**
-     * Imprime todo o conteúdo de chaves da árvore
+     * Imprime todo o conteúdo de chaves da árvore com opção de imprimir em arquivo ou console
      * 
      * @return void
     */
-    void printTree();
+    void printTree(bool archive,string filename = "");
 
     /**
      * Retorna o nó em que a chave dada está presente ou NULL caso não encontrado

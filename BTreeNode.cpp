@@ -90,22 +90,42 @@ BTreeNode* BTreeNode::search(int key)
     return this->children[i]->search(key);
 }
 
-void BTreeNode::printNode()
+void BTreeNode::printNodeOnConsole()
 {
     int i;
     for(i = 0;i < this->storedKeys;i++)
     {
         if(!this->leaf)
         {
-            this->children[i]->printNode();
+            this->children[i]->printNodeOnConsole();
         }
         cout << " " << this->keys[i];
     }
 
     if(!this->leaf)
     {
-        this->children[i]->printNode();
+        this->children[i]->printNodeOnConsole();
     }
+    cout << endl;
+}
+
+void BTreeNode::printNodeOnArchive(ofstream &file)
+{
+    int i;
+    for(i = 0;i < this->storedKeys;i++)
+    {
+        if(!this->leaf)
+        {
+            this->children[i]->printNodeOnArchive(file);
+        }
+        file << " " << this->keys[i];
+    }
+
+    if(!this->leaf)
+    {
+        this->children[i]->printNodeOnArchive(file);
+    }
+    file << endl;   
 }
 
 void BTreeNode::split(int i,BTreeNode *node)

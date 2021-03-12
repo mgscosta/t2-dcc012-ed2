@@ -2,6 +2,7 @@
 #define BTREENODE_H
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -119,11 +120,18 @@ public:
     BTreeNode* search(int key);
 
     /**
-     * Imprime o conteúdo de chaves deste nó e de todos os seus filhos
+     * Imprime o conteúdo de chaves deste nó e de todos os seus filhos no console
      * 
      * @return void
     */
-    void printNode();
+    void printNodeOnConsole();
+
+    /**
+     * Imprime o conteúdo de chaves deste nó e de todos os seus filhos em arquivo
+     * 
+     * @return void
+    */
+    void printNodeOnArchive(ofstream &file);
 
     /**
      * Parte do algoritmo de inserção da árvore caso o nó seja folha, ele insere nó no vetor de chaves, 

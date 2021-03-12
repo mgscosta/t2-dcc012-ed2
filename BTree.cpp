@@ -8,11 +8,21 @@ BTree::BTree(int minDeg)
 
 BTree::~BTree(){}
 
-void BTree::printTree()
+void BTree::printTree(bool archive,string filename/*= ""*/)
 {
     if(this->root != NULL)
     {
-        this->root->printNode();
+        if(archive)
+        {
+            ofstream outfile(filename,ios::app);
+            this->root->printNodeOnArchive(outfile);
+            cout << "Árvore salva em " << filename << endl;
+            outfile.close();
+        }
+        else
+        {
+            this->root->printNodeOnConsole();
+        }
     }
 }
 
