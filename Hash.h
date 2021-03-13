@@ -75,7 +75,13 @@ public:
    * Incrementa Contador
    * */
   void incrementCount();
-
+  
+  /**
+   * Retorna os dados do CovidData armazenados na chave hash passada por parâmetro
+   * 
+   * @param unsigned long key
+   * @return  CovidData
+  */
   CovidData getItemFromHashKey(unsigned long key);
 };
 

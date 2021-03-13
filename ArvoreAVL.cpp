@@ -289,3 +289,29 @@ void ArvoreAVL::imprime(bool arquivo,string nomeArquivo/*= ""*/)
         auxImprimeConsole(this->raiz);
     }
 }
+
+void ArvoreAVL::auxBuscaPorTotaldeCasos(NoAVL *p,string codigoCidade,long int *comparacoes,vector<int> &chaves,Hash &table)
+{
+    *comparacoes = *comparacoes + 1;
+    if (p == NULL)
+    {
+        return;
+    }
+    else
+    {
+        *comparacoes = *comparacoes + 1;
+        if(table.getItemFromHashKey(p->getInfo()).getCityCode().substr(0,5) == codigoCidade)
+        {
+            chaves.push_back(p->getInfo());
+        }
+        auxBuscaPorTotaldeCasos(p->getEsq(),codigoCidade,comparacoes,chaves,table);
+        auxBuscaPorTotaldeCasos(p->getDir(),codigoCidade,comparacoes,chaves,table);
+    }   
+}
+
+vector<int> ArvoreAVL::buscaPorTotaldeCasos(string codigoCidade,long int *comparacoes,Hash &table)
+{
+    vector<int> chaves;
+    auxBuscaPorTotaldeCasos(this->raiz,codigoCidade,comparacoes,chaves,table);
+    return chaves;   
+}
