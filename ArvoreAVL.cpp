@@ -30,9 +30,9 @@ bool ArvoreAVL::vazia()
     return raiz == NULL;
 }
 
-void ArvoreAVL::insere(int val)
+void ArvoreAVL::insere(int val,Hash &table)
 {
-    raiz = auxInsere(raiz, val);
+    raiz = auxInsere(raiz, val,table);
 
     if (arvAVL == 1)
     {
@@ -41,7 +41,7 @@ void ArvoreAVL::insere(int val)
     }
 }
 
-NoAVL *ArvoreAVL::auxInsere(NoAVL *p, int val)
+NoAVL *ArvoreAVL::auxInsere(NoAVL *p, int val,Hash &table)
 {
     if (p == NULL)
     {
@@ -50,10 +50,10 @@ NoAVL *ArvoreAVL::auxInsere(NoAVL *p, int val)
         p->setEsq(NULL);
         p->setDir(NULL);
     }
-    else if (val < p->getInfo())
-        p->setEsq(auxInsere(p->getEsq(), val));
+    else if (table.getItemFromHashKey(val).getCityCode() <= table.getItemFromHashKey(p->getInfo()).getCityCode() && table.getItemFromHashKey(val).getDate() < table.getItemFromHashKey(p->getInfo()).getDate())
+        p->setEsq(auxInsere(p->getEsq(), val,table));
     else
-        p->setDir(auxInsere(p->getDir(), val));
+        p->setDir(auxInsere(p->getDir(), val,table));
 
     return p;
 }

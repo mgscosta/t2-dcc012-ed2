@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "Hash.h"
 
 using namespace std;
 
@@ -137,11 +138,13 @@ public:
      * Parte do algoritmo de inserção da árvore caso o nó seja folha, ele insere nó no vetor de chaves, 
      * caso contrário ele faz a busca entre os filhos pela folha correta para inserção, fazendo as devidas repatições 
      * caso um dos nós filhos esteja cheio
+     * A tabela hash de dados do COVID-19 é usada para coletar os dados usados para ordenação dos nós
      * 
      * @param int key
+     * @param Hash &table
      * @return void
     */
-    void insert(int key);
+    void insert(int key,Hash &table);
 
     /**
      * Realiza a repartição do filho i deste nó, dividindo suas chaves e filhos corretamente

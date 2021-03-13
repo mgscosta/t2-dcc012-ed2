@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "BTreeNode.h"
+#include "Hash.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ public:
      * @param int key
      * @return void 
     */
-    void insert(int key);
+    void insert(int key,Hash &table);
 };
 
 #endif

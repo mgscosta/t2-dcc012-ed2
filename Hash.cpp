@@ -149,3 +149,8 @@ void Hash::incrementCount()
 {
   this->count++;
 }
+
+CovidData Hash::getItemFromHashKey(unsigned long key)
+{
+  return this->items[key]->getValue();
+}

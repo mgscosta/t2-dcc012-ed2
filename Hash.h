@@ -75,6 +75,8 @@ public:
    * Incrementa Contador
    * */
   void incrementCount();
+
+  CovidData getItemFromHashKey(unsigned long key);
 };
 
 #endif

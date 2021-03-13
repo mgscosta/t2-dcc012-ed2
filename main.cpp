@@ -21,7 +21,6 @@ void execAVLBenchmark (int nData) {
   for(int i=0; i < nData; i++) {
     // avl.insere(rand() % hashTable.getSize());
     // Insere index da tabela Hash na AVL tree
-    avl.insere(hashTable.hash(hashTable.getItemVector()[rand() % hashTable.getSize()]->getKey()));
   }
   //S1
   cout << "Digite o código da cidade" << endl;
@@ -55,6 +54,12 @@ int main(int argc, char const *argv[])
         vector<CoordinatesData*> coordinatesData = reader.readCoordinatesDatafromFile(directory + "brazil_cities_coordinates.csv");
         cout << "Importando arquivo de dados da COVID-19 do diretório..." << endl;
         vector<HashItem*> covidData = reader.readPreProcessedCovidDataFromFile(directory + "brazil_covid19_cities_processado.csv");
+        cout << "Criando tabela de referência para inserção e busca em árvore..." << endl;
+        Hash tableForTrees;
+        for(int i = 0;i < covidData.size();i++)
+        {
+            tableForTrees.insert(covidData[i]);
+        }
 
         if(atoi(argv[2]) == 0)
         {
@@ -131,7 +136,7 @@ int main(int argc, char const *argv[])
                     }
                     for(int i = 0; i < randomIndex.size();i++)
                     {
-                        avlTree.insere(randomIndex[i]);   
+                        avlTree.insere(randomIndex[i],tableForTrees);   
                     }
 
                     if(n <= 20)
@@ -154,7 +159,7 @@ int main(int argc, char const *argv[])
                     }
                     for(int i = 0; i < randomIndex.size();i++)
                     {
-                        bTree.insert(randomIndex[i]);   
+                        bTree.insert(randomIndex[i],tableForTrees);   
                     }
 
                     if(n <= 20)

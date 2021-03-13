@@ -38,7 +38,7 @@ BTreeNode* BTree::search(int key)
     }
 }
 
-void BTree::insert(int key)
+void BTree::insert(int key,Hash &table)
 {
     if(this->root == NULL)
     {
@@ -59,13 +59,13 @@ void BTree::insert(int key)
             {
                 i++;
             }
-            newNode->getChild(i)->insert(key);
+            newNode->getChild(i)->insert(key,table);
 
             this->root = newNode;
         }
         else
         {
-            this->root->insert(key);
+            this->root->insert(key,table);
         }
     }
 }

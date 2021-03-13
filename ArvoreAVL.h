@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "NoAVL.h"
+#include "Hash.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class ArvoreAVL
 private:
     NoAVL *raiz;
     bool arvAVL;
-    NoAVL *auxInsere(NoAVL *p, int val);
+    NoAVL *auxInsere(NoAVL *p, int val,Hash &table);
     bool auxBusca(NoAVL *p, int id, long int *comparacoes);
     int alturaNoAVL(NoAVL *p);
     NoAVL *rotacaoSimplesEsquerda(NoAVL *p);
@@ -30,7 +31,7 @@ public:
     ~ArvoreAVL();
     int getRaiz();
     bool vazia();
-    void insere(int val);
+    void insere(int val, Hash &table);
     bool busca(int val, long int *comparacoes);
     int maior(int a, int b);
     void fatorBalanciado();

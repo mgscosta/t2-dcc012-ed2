@@ -163,12 +163,12 @@ void BTreeNode::split(int i,BTreeNode *node)
     this->storedKeys++;
 }
 
-void BTreeNode::insert(int key)
+void BTreeNode::insert(int key,Hash &table)
 {
     int i = this->storedKeys - 1;
     if(this->leaf)
     {
-        while (i >= 0 && this->keys[i] > key)
+        while (i >= 0 && (table.getItemFromHashKey(this->keys[i]).getCityCode() >= table.getItemFromHashKey(key).getCityCode() && table.getItemFromHashKey(this->keys[i]).getDate() > table.getItemFromHashKey(key).getDate()))
         {
             this->keys[i+1] = this->keys[i];
             i--;
@@ -178,18 +178,18 @@ void BTreeNode::insert(int key)
     }
     else
     {
-        while (i >= 0 && this->keys[i] > key)
+        while (i >= 0 && (table.getItemFromHashKey(this->keys[i]).getCityCode() >= table.getItemFromHashKey(key).getCityCode() && table.getItemFromHashKey(this->keys[i]).getDate() > table.getItemFromHashKey(key).getDate()))
         {
             i--;
         }
         if(this->children[i+1]->getStoredKeys() == 2 * this->minDeg - 1)
         {
             this->split(i+1,this->children[i+1]);
-            if(this->keys[i+1] < key)
+            if(table.getItemFromHashKey(this->keys[i+1]).getCityCode() <= table.getItemFromHashKey(key).getCityCode() && table.getItemFromHashKey(this->keys[i+1]).getDate() < table.getItemFromHashKey(key).getDate())
             {
                 i++;
             }
         }
-        this->children[i+1]->insert(key);
+        this->children[i+1]->insert(key,table);
     }
 }
