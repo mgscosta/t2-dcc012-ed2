@@ -74,7 +74,7 @@ vector<HashItem*> DataReader::readPreProcessedCovidDataFromFile(string filename)
                 getline(dataFromLine,stateInitials,',');
                 getline(dataFromLine,cityName,',');
                 getline(dataFromLine,cityCode,',');
-                getline(dataFromLine,caseCount,',');
+                getline(dataFromLine,caseCount,',');    
                 getline(dataFromLine,deathCount,',');
                 key = cityCode.substr(0,cityCode.find('.'));
                 key.append(date);
