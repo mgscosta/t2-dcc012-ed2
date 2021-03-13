@@ -67,6 +67,10 @@ public:
   vector<HashItem*> getItemVector();
   void setItemVector(vector<HashItem*> v_i);
 
+   /**
+    * Get Size
+    */
+   int getSize();
   /**
    * Incrementa Contador
    * */

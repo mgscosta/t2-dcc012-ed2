@@ -11,6 +11,25 @@
 
 using namespace std;
 
+void execAVLBenchmark (int nData) {
+  vector<int> randomIndex;
+  Hash hashTable;
+  ArvoreAVL avl;
+  string cityCode;
+  // for(int i < m (5); i++ {})
+  // Inserção
+  for(int i=0; i < nData; i++) {
+    // avl.insere(rand() % hashTable.getSize());
+    // Insere index da tabela Hash na AVL tree
+    avl.insere(hashTable.hash(hashTable.getItemVector()[rand() % hashTable.getSize()]->getKey()));
+  }
+  //S1
+  cout << "Digite o código da cidade" << endl;
+  cin >> cityCode;
+  
+
+}
+
 int main(int argc, char const *argv[])
 {
     if(argc != 3)
@@ -157,6 +176,24 @@ int main(int argc, char const *argv[])
         }
         else if(atoi(argv[2]) == 1)
         {
+            // execAVLBenchmark(10000)
+            // execAVLBenchmark(50000)
+            // execAVLBenchmark(100000)
+            // execAVLBenchmark(500000)
+            // execAVLBenchmark(1000000)
+
+            // execB20Benchmark(10000)
+            // execB20Benchmark(50000)
+            // execB20Benchmark(100000)
+            // execB20Benchmark(500000)
+            // execB20Benchmark(1000000)
+
+            // execB200Benchmark(10000)
+            // execB200Benchmark(50000)
+            // execB200Benchmark(100000)
+            // execB200Benchmark(500000)
+            // execB200Benchmark(1000000)
+
 
         }
         else

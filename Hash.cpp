@@ -136,6 +136,10 @@ vector<HashItem *> Hash::getItemVector()
   return this->items;
 }
 
+int Hash::getSize() {
+  return this->size;
+}
+
 void Hash::setItemVector(vector<HashItem *> v_i)
 {
   this->items = v_i;
