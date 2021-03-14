@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 #include "QuadTreeNode.h"
 #include "CoordinatesData.h"
 
@@ -52,6 +53,8 @@ private:
      * @return void
     */
     void printOnArchive(ofstream &file,QuadTreeNode *node,string direction = "");
+
+    void auxSearchCityCodes(QuadTreeNode *node,float latX,float longX,float latY,float longY,vector<string> &cityCodes);
 public:
     /**
      * Construtor da classe
@@ -96,6 +99,8 @@ public:
      * @return void
     */
     void printTree(bool archive,string filename = "");
+
+    vector<string> searchForCityCodesOnCoordinates(float latX,float longX,float latY,float longY);
 };
 
 #endif

@@ -222,3 +222,29 @@ void QuadTree::printTree(bool archive,string filename /*= ""*/)
         printOnConsole(this->root);
     }
 }
+
+void QuadTree::auxSearchCityCodes(QuadTreeNode *node,float latX,float longX,float latY,float longY,vector<string> &cityCodes)
+{
+    if(node == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        if((node->getLatitude() >= latX && node->getLatitude() <= latY) && (node->getLongtude() >= longX && node->getLongtude() <= longY))
+        {
+            cityCodes.push_back(to_string(node->getCity().getCityCode()).substr(0,5));
+        }
+        auxSearchCityCodes(node->getNortheast(),latX,longX,latY,longY,cityCodes);
+        auxSearchCityCodes(node->getNorthwest(),latX,longX,latY,longY,cityCodes);
+        auxSearchCityCodes(node->getSouthwest(),latX,longX,latY,longY,cityCodes);
+        auxSearchCityCodes(node->getSoutheast(),latX,longX,latY,longY,cityCodes);
+    }
+}
+
+vector<string> QuadTree::searchForCityCodesOnCoordinates(float latX,float longX,float latY,float longY)
+{
+    vector<string> cityCodes;
+    auxSearchCityCodes(this->root,latX,longX,latY,longY,cityCodes);
+    return cityCodes;
+}
