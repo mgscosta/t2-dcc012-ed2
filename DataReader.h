@@ -9,7 +9,7 @@
 #include "CoordinatesData.h"
 #include "HashItem.h"
 #include "CovidData.h"
-#include "Benchmark.h"
+
 using namespace std;
 
 //Classe resposável pelas funções de leitura e escrita do projeto
@@ -53,14 +53,6 @@ public:
      * @return vector<CovidData>
     */
     vector<HashItem*> readPreProcessedCovidDataFromFile(string filename);
-
-    /**
-     * Exporta os dados na classe de Benchmark para o arquivo "saidas.txt"
-     * 
-     * @param Benchmark bench
-     * @return void
-    */
-    void exportBenchmarkDataToFile(Benchmark * bench);
 
   
 };
