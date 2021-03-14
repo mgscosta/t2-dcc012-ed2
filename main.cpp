@@ -8,14 +8,18 @@
 #include "Hash.h"
 #include "ArvoreAVL.h"
 #include "BTree.h"
+#include "Benchmark.h"
 
 using namespace std;
 
 void execAVLBenchmark (int nData) {
   vector<int> randomIndex;
+  vector<int> cities;
   Hash hashTable;
   ArvoreAVL avl;
   string cityCode;
+  long int * comparacoes;
+  long int numCasos = 0;
   // for(int i < m (5); i++ {})
   // Inserção
   for(int i=0; i < nData; i++) {
@@ -25,8 +29,10 @@ void execAVLBenchmark (int nData) {
   //S1
   cout << "Digite o código da cidade" << endl;
   cin >> cityCode;
-  
-
+  cities = avl.buscaPorTotaldeCasos(cityCode, comparacoes, hashTable);
+  for(int i =0; i < cities.size(); i++) {
+      numCasos += hashTable.getItemFromHashKey(cities[i]).getCaseCount();
+  }
 }
 
 int main(int argc, char const *argv[])
