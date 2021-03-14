@@ -154,6 +154,8 @@ public:
      * @return void
     */
     void split(int i,BTreeNode *node);
+
+    void searchForTotalCases(string cityCode,long int *comparisons,vector<int> &keys,Hash &table);
 };
 
 #endif

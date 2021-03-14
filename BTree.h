@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "BTreeNode.h"
 #include "Hash.h"
 
@@ -52,6 +53,8 @@ public:
      * @return void 
     */
     void insert(int key,Hash &table);
+
+    vector<int> searchForTotalCases(string cityCode,long int *comparisons,Hash &table);
 };
 
 #endif

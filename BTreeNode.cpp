@@ -193,3 +193,25 @@ void BTreeNode::insert(int key,Hash &table)
         this->children[i+1]->insert(key,table);
     }
 }
+
+void BTreeNode::searchForTotalCases(string cityCode,long int *comparisons,vector<int> &keys,Hash &table)
+{
+    int i = 0;
+    while (i < this->storedKeys && cityCode >= table.getItemFromHashKey(this->keys[i]).getCityCode().substr(0,5))
+    {
+        *comparisons = *comparisons + 1;
+        if(table.getItemFromHashKey(this->keys[i]).getCityCode().substr(0,5) == cityCode)
+        {
+            keys.push_back(this->keys[i]);
+        }
+        i++;
+    }
+
+    *comparisons = *comparisons + 1;
+    if(this->leaf)
+    {
+        return;
+    }
+    
+    this->children[i]->searchForTotalCases(cityCode,comparisons,keys,table);
+}

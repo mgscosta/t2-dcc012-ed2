@@ -69,3 +69,18 @@ void BTree::insert(int key,Hash &table)
         }
     }
 }
+
+vector<int> BTree::searchForTotalCases(string cityCode,long int *comparisons,Hash &table)
+{
+    vector<int> keys;
+    *comparisons = *comparisons + 1;
+    if(this->root == NULL)
+    {
+        return keys;
+    }
+    else
+    {
+        this->root->searchForTotalCases(cityCode,comparisons,keys,table);
+        return keys;
+    }
+}
