@@ -16,37 +16,47 @@ void execAVLBenchmark(int nData)
 {
     vector<int> randomIndex;
     vector<int> cities;
-    Benchmark bench;
+    DataReader reader;
     Hash hashTable;
     ArvoreAVL avl;
     string cityCode;
-    long int *comparacoes;
+    long int * comparacoes;
     long int numCasos = 0;
-    
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     cout << "M =  " << i << endl;
-        // Inserção
-        bench.setStartTimeAsNow();
+
+    ofstream intro("saidas.txt",ios::app);
+
+    intro << "AVL TREE - N: " << nData << endl;
+    intro << "Comparações,Tempo de execução da inserção,Tempo de execução da busca" << endl;
+    intro.close();
+
+
+    for (int i = 0; i < 5; i++)
+    {
+        srand(i);
+        Benchmark * bench;
+        
+        bench->setStartTimeAsNow();
         for (int i = 0; i < nData; i++)
         {
-            avl.insere(rand() % hashTable.getSize(), hashTable); // Insere index da tabela Hash na AVL tree   
+            avl.insere(rand() % hashTable.getSize(), hashTable); // Insere index da tabela Hash na AVL tree
         }
-        bench.setEndTimeAsNow();
-        bench.generateInsertionRuntime();   // Calcula tempo de execução da inserção
+        bench->setEndTimeAsNow();
+        bench->generateInsertionRuntime(); // Calcula tempo de execução da inserção
         cout << "Digite o código da cidade" << endl;
-        cin >> cityCode;    // Pega codigo da cidade via input do usuário
-    
-        bench.setStartTimeAsNow();
+        cin >> cityCode; // Pega codigo da cidade via input do usuário  
+
+        bench->setStartTimeAsNow();
         cities = avl.buscaPorTotaldeCasos(cityCode, comparacoes, hashTable); // Busca S1
-        bench.setEndTimeAsNow();
-        bench.generateSearchRuntime(); // Calcula tempo de execução da busca
+        bench->setEndTimeAsNow();
+        bench->generateSearchRuntime(); // Calcula tempo de execução da busca
+        bench->setCompNumber(*comparacoes);
+        reader.exportBenchmarkDataToFile(bench);
 
         for (int i = 0; i < cities.size(); i++)
         {
             numCasos += hashTable.getItemFromHashKey(cities[i]).getCaseCount();
         }
-  //  }
+      }
 }
 
 int main(int argc, char const *argv[])
@@ -205,7 +215,7 @@ int main(int argc, char const *argv[])
         }
         else if (atoi(argv[2]) == 1)
         {
-            // execAVLBenchmark(10000)
+             execAVLBenchmark(10000);
             // execAVLBenchmark(50000)
             // execAVLBenchmark(100000)
             // execAVLBenchmark(500000)

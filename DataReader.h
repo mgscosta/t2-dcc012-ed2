@@ -9,6 +9,7 @@
 #include "CoordinatesData.h"
 #include "HashItem.h"
 #include "CovidData.h"
+#include "Benchmark.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ private:
      * @return bool
     */
     bool stringToBoolean(string str);
+
 public:
     /**
      * Construtor da classe
@@ -44,7 +46,7 @@ public:
      * @param string filename
      * @return vector<CoordinatesData*>
     */
-    vector<CoordinatesData*> readCoordinatesDatafromFile(string filename);
+    vector<CoordinatesData *> readCoordinatesDatafromFile(string filename);
 
     /**
      * Retorna um vector com os dados lidos de cada linha do arquivo pré-processado do Covid-19, a função lê o arquivo ignorando as linhas vazias.
@@ -52,9 +54,13 @@ public:
      * @param string fileName
      * @return vector<CovidData>
     */
-    vector<HashItem*> readPreProcessedCovidDataFromFile(string filename);
+    vector<HashItem *> readPreProcessedCovidDataFromFile(string filename);
 
-  
+    /**
+ * Função que exporta as métricas de benchmark para o arquivo saidas.txt
+ * @param Benchmark * bench
+ */
+    void exportBenchmarkDataToFile(Benchmark *bench);
 };
 
 #endif
