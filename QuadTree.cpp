@@ -233,7 +233,7 @@ void QuadTree::auxSearchCityCodes(QuadTreeNode *node,float latX,float longX,floa
     {
         if((node->getLatitude() >= latX && node->getLatitude() <= latY) && (node->getLongtude() >= longX && node->getLongtude() <= longY))
         {
-            cityCodes.push_back(to_string(node->getCity().getCityCode()).substr(0,5));
+            cityCodes.push_back(to_string(node->getCity().getCityCode()).substr(0,6));
         }
         auxSearchCityCodes(node->getNortheast(),latX,longX,latY,longY,cityCodes);
         auxSearchCityCodes(node->getNorthwest(),latX,longX,latY,longY,cityCodes);

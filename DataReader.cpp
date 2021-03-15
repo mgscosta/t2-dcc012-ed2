@@ -94,9 +94,9 @@ vector<HashItem*> DataReader::readPreProcessedCovidDataFromFile(string filename)
     return items;
 }
 
- void DataReader::exportBenchmarkDataToFile(Benchmark *bench)
+ void DataReader::exportBenchmarkDataToFile(Benchmark bench,string filename)
  {
-    ofstream outfile("saidas.txt",ios::app);
-    outfile << bench->getCompNumber() << ","<< bench->getInsertionRuntime() << "," << bench->getSearchRuntime() << endl;
+    ofstream outfile(filename,ios::app);
+    outfile << bench.getS1NumCases() << "," << bench.getS2NumCases() << "," << bench.getS1CompNumber() << "," << bench.getS2CompNumber() << ","<< bench.getInsertionRuntime() << "," << bench.getSearchRuntime() << endl;
     outfile.close();  
  }

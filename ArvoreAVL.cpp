@@ -300,7 +300,7 @@ void ArvoreAVL::auxBuscaPorTotaldeCasos(NoAVL *p,string codigoCidade,long int *c
     else
     {
         *comparacoes = *comparacoes + 1;
-        if(table.getItemFromHashKey(p->getInfo()).getCityCode().substr(0,5) == codigoCidade)
+        if(table.getItemFromHashKey(p->getInfo()).getCityCode().substr(0,6) == codigoCidade)
         {
             chaves.push_back(p->getInfo());
         }

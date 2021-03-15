@@ -57,10 +57,10 @@ public:
     vector<HashItem *> readPreProcessedCovidDataFromFile(string filename);
 
     /**
- * Função que exporta as métricas de benchmark para o arquivo saidas.txt
- * @param Benchmark * bench
- */
-    void exportBenchmarkDataToFile(Benchmark *bench);
+    * Função que exporta as métricas de benchmark para o arquivo saidas.txt
+    * @param Benchmark * bench
+    */
+    void exportBenchmarkDataToFile(Benchmark bench,string filename);
 };
 
 #endif

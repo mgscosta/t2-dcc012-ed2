@@ -12,7 +12,8 @@ class Benchmark
 {
 private:
     //Armazena o número de comparações
-    int compNumber;
+    int s1CompNumber;
+    int s2CompNumber;
     //Armazena o ponto de partida do algoritmo de ordenação
     chrono::time_point<chrono::high_resolution_clock> startTime;
     //Armazena o ponto de término do algoritmo de ordenação
@@ -20,6 +21,8 @@ private:
     //Armazena o tempo de execução dos algoritmos de inserção e busca
     double insertionRuntime;
     double searchRuntime;
+    int s1NumCases;
+    int s2NumCases;
 
 public:
     /**
@@ -38,8 +41,15 @@ public:
      * 
      * @return int
     */
-    int getCompNumber();
- 
+    int getS1CompNumber();
+    
+    /**
+     * Retorna o número de comparações
+     * 
+     * @return int
+    */
+    int getS2CompNumber();
+
     /**
      * Retorna o ponto de partida do algoritmo
      * 
@@ -65,13 +75,29 @@ public:
     */
     double getSearchRuntime();
 
+    int getS1NumCases();
+
+    void setS1NumCases(int numCases);
+
+    int getS2NumCases();
+
+    void setS2NumCases(int numCases);
+
     /**
      * Define/Redefine o número de comparações
      * 
      * @param int compNumber
      * @return void
     */
-    void setCompNumber(int compNumber);
+    void setS1CompNumber(int compNumber);
+
+    /**
+     * Define/Redefine o número de comparações
+     * 
+     * @param int compNumber
+     * @return void
+    */
+    void setS2CompNumber(int compNumber);
 
     /**
      * Define/Redefine o ponto de partida do algoritmo
@@ -102,13 +128,6 @@ public:
     */
     void setSearchRuntime(double searchRuntime);
  
-    /**
-     * Incrementa em 1 o número de comparações
-     * 
-     * @return void
-    */
-    void incrementCompNumber();
-
     /**
      * Define ponto de partida do algoritmo para o momento em que esta função é chamada
      * 

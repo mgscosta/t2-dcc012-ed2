@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <time.h>
 #include "DataReader.h"
@@ -12,51 +13,146 @@
 
 using namespace std;
 
-void execAVLBenchmark(int nData)
+void execAVLBenchmark(string directory,int nData,Hash &table,string cityCode,vector<string> &cityCodes)
 {
-    vector<int> randomIndex;
-    vector<int> cities;
+    ofstream intro(directory + "saida.txt",ios::app);
     DataReader reader;
-    Hash hashTable;
-    ArvoreAVL avl;
-    string cityCode;
-    long int * comparacoes;
-    long int numCasos = 0;
-
-    ofstream intro("saidas.txt",ios::app);
+    float s1CompNumber[5];
+    float s2CompNumber[5];
+    double insertionTime[5];
+    double compTime[5];
 
     intro << "AVL TREE - N: " << nData << endl;
-    intro << "Comparações,Tempo de execução da inserção,Tempo de execução da busca" << endl;
+    intro << "Número de casos S1,Número de casos S2,Comparações S1,Comparações S2,Tempo de execução da inserção,Tempo de execução da busca" << endl;
     intro.close();
 
-
-    for (int i = 0; i < 5; i++)
+    for(int i = 0;i < 5;i++)
     {
         srand(i);
-        Benchmark * bench;
+        ArvoreAVL tree;
+        Benchmark bench;
+        long int comparisons = 0;
+        int numCases = 0;
+
+        cout << "Inserção " << i << " N " << nData << endl;
+        bench.setStartTimeAsNow();
+        for(int j = 0;j < nData;j++)
+        {
+            tree.insere(rand() % table.getSize(),table);
+        }
+        bench.setEndTimeAsNow();
+        bench.generateInsertionRuntime();
+
+        cout << "Busca " << i << " N " << nData << endl;
+        bench.setStartTimeAsNow();
+        vector<int> data = tree.buscaPorTotaldeCasos(cityCode,&comparisons,table);
+        bench.setS1CompNumber(comparisons);
+        comparisons = 0;
+        for(int j = 0;j < data.size();j++)
+        {
+            numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+        }
+        bench.setS1NumCases(numCases);
+        numCases = 0;
+        for(int j = 0;j < cityCodes.size();j++)
+        {
+            data = tree.buscaPorTotaldeCasos(cityCodes[i],&comparisons,table);
+            for(int k = 0; k < data.size();k++)
+            {
+                numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+            }
+        }
+        bench.setS2CompNumber(comparisons);
+        bench.setS1NumCases(numCases);
+        bench.setEndTimeAsNow();
+        bench.generateSearchRuntime();
+        s1CompNumber[i] = bench.getS1CompNumber();
+        s2CompNumber[i] = bench.getS2CompNumber();
+        insertionTime[i] = bench.getInsertionRuntime();
+        compTime[i] = bench.getSearchRuntime();
+        reader.exportBenchmarkDataToFile(bench,directory + "saida.txt");
+    }
+    float averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
+    float averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
+    float averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
+    float averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
+
+    ofstream outro(directory + "saida.txt",ios::app);
+    outro << "MÉDIAS: Comparações S1,Comparações S2,Tempo de inserção,Tempo de busca" << endl;
+    outro << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
+    outro << endl;
+    outro.close();
+}
+
+void execBTreeBenchmark(int d,string directory,int nData,Hash &table,string cityCode,vector<string> &cityCodes)
+{
+    ofstream intro(directory + "saida.txt",ios::app);
+    DataReader reader;
+    float s1CompNumber[5];
+    float s2CompNumber[5];
+    double insertionTime[5];
+    double compTime[5];
+
+    intro << "B TREE D " << d << " - N: " << nData << endl;
+    intro << "Número de casos S1,Número de casos S2,Comparações S1,Comparações S2,Tempo de execução da inserção,Tempo de execução da busca" << endl;
+    intro.close();
+
+    for(int i = 0;i < 5;i++)
+    {
+        srand(i);
+        BTree tree(d);
+        Benchmark bench;
+        long int comparisons = 0;
+        int numCases = 0;
         
-        bench->setStartTimeAsNow();
-        for (int i = 0; i < nData; i++)
+        cout << "Inserção " << i << " N " << nData << endl;
+        bench.setStartTimeAsNow();
+        for(int j = 0;j < nData;j++)
         {
-            avl.insere(rand() % hashTable.getSize(), hashTable); // Insere index da tabela Hash na AVL tree
+            tree.insert(rand() % table.getSize(),table);
         }
-        bench->setEndTimeAsNow();
-        bench->generateInsertionRuntime(); // Calcula tempo de execução da inserção
-        cout << "Digite o código da cidade" << endl;
-        cin >> cityCode; // Pega codigo da cidade via input do usuário  
+        bench.setEndTimeAsNow();
+        bench.generateInsertionRuntime();
 
-        bench->setStartTimeAsNow();
-        cities = avl.buscaPorTotaldeCasos(cityCode, comparacoes, hashTable); // Busca S1
-        bench->setEndTimeAsNow();
-        bench->generateSearchRuntime(); // Calcula tempo de execução da busca
-        bench->setCompNumber(*comparacoes);
-        reader.exportBenchmarkDataToFile(bench);
-
-        for (int i = 0; i < cities.size(); i++)
+        cout << "Busca " << i << " N " << nData << endl;
+        bench.setStartTimeAsNow();
+        vector<int> data = tree.searchForTotalCases(cityCode,&comparisons,table);
+        bench.setS1CompNumber(comparisons);
+        comparisons = 0;
+        for(int j = 0;j < data.size();j++)
         {
-            numCasos += hashTable.getItemFromHashKey(cities[i]).getCaseCount();
+            numCases += table.getItemFromHashKey(data[i]).getCaseCount();
         }
-      }
+        bench.setS1NumCases(numCases);
+        numCases = 0;
+        for(int j = 0;j < cityCodes.size();j++)
+        {
+            data = tree.searchForTotalCases(cityCodes[i],&comparisons,table);
+            for(int k = 0; k < data.size();k++)
+            {
+                numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+            }
+        }
+        bench.setS2CompNumber(comparisons);
+        bench.setS1NumCases(numCases);
+        bench.setEndTimeAsNow();
+        bench.generateSearchRuntime();
+        s1CompNumber[i] = bench.getS1CompNumber();
+        s2CompNumber[i] = bench.getS2CompNumber();
+        insertionTime[i] = bench.getInsertionRuntime();
+        compTime[i] = bench.getSearchRuntime();
+        reader.exportBenchmarkDataToFile(bench,directory + "saida.txt");
+    }
+    float averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
+    float averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
+    float averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
+    float averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
+
+    ofstream outro(directory + "saida.txt",ios::app);
+    outro << "MÉDIAS: Comparações S1,Comparações S2,Tempo de inserção,Tempo de busca" << endl;
+    outro << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
+    outro << endl;
+    outro.close();   
 }
 
 int main(int argc, char const *argv[])
@@ -215,23 +311,49 @@ int main(int argc, char const *argv[])
         }
         else if (atoi(argv[2]) == 1)
         {
-             execAVLBenchmark(10000);
-            // execAVLBenchmark(50000)
-            // execAVLBenchmark(100000)
-            // execAVLBenchmark(500000)
-            // execAVLBenchmark(1000000)
+            cout << "Montando Quad Tree para pesquisa em coordenadas..." << endl;
+            QuadTree treeForSearch;
+            for(int i = 0;i < coordinatesData.size();i++)
+            {
+                treeForSearch.insert(*coordinatesData[i]);
+            }
 
-            // execB20Benchmark(10000)
-            // execB20Benchmark(50000)
-            // execB20Benchmark(100000)
-            // execB20Benchmark(500000)
-            // execB20Benchmark(1000000)
+            string cityCode;
+            cout << "Digite o código da cidade que deseja realizar a pesquisa (Código deve ter apenas os seis primeiros digitos): ";
+            cin >> cityCode;
 
-            // execB200Benchmark(10000)
-            // execB200Benchmark(50000)
-            // execB200Benchmark(100000)
-            // execB200Benchmark(500000)
-            // execB200Benchmark(1000000)
+            float coords[4];
+            cout << "Digite as coordenadas para a pesquisa por latitude e logitude (as cidades do Brasil estão entre [-999.998,-728.997]x[-29.04,-63.09])" << endl;
+            cout << "Latitude X: ";
+            cin >> coords[0];
+            cout << "Longitude X: ";
+            cin >> coords[1];
+            cout << "Latitude Y ";
+            cin >> coords[2];
+            cout << "Longitude Y: ";
+            cin >> coords[3];
+
+            vector<string> cityCodes = treeForSearch.searchForCityCodesOnCoordinates(coords[0],coords[1],coords[2],coords[3]);
+
+            execAVLBenchmark(directory,10000,tableForTrees,cityCode,cityCodes);
+            execAVLBenchmark(directory,50000,tableForTrees,cityCode,cityCodes);
+            execAVLBenchmark(directory,100000,tableForTrees,cityCode,cityCodes);
+            execAVLBenchmark(directory,500000,tableForTrees,cityCode,cityCodes);
+            execAVLBenchmark(directory,1000000,tableForTrees,cityCode,cityCodes);
+
+            execBTreeBenchmark(20,directory,10000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(20,directory,50000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(20,directory,100000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(20,directory,500000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(20,directory,1000000,tableForTrees,cityCode,cityCodes);
+
+            execBTreeBenchmark(200,directory,10000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(200,directory,50000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(200,directory,100000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(200,directory,500000,tableForTrees,cityCode,cityCodes);
+            execBTreeBenchmark(200,directory,1000000,tableForTrees,cityCode,cityCodes);
+
+            cout << "Encerrando execução..." << endl;
         }
         else
         {
