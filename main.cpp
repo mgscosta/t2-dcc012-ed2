@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <time.h>
@@ -17,8 +18,8 @@ void execAVLBenchmark(string directory,int nData,Hash &table,string cityCode,vec
 {
     ofstream intro(directory + "saida.txt",ios::app);
     DataReader reader;
-    float s1CompNumber[5];
-    float s2CompNumber[5];
+    long int s1CompNumber[5];
+    long int s2CompNumber[5];
     double insertionTime[5];
     double compTime[5];
 
@@ -50,20 +51,20 @@ void execAVLBenchmark(string directory,int nData,Hash &table,string cityCode,vec
         comparisons = 0;
         for(int j = 0;j < data.size();j++)
         {
-            numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+            numCases += table.getItemFromHashKey(data[j]).getCaseCount();
         }
         bench.setS1NumCases(numCases);
         numCases = 0;
         for(int j = 0;j < cityCodes.size();j++)
         {
-            data = tree.buscaPorTotaldeCasos(cityCodes[i],&comparisons,table);
+            data = tree.buscaPorTotaldeCasos(cityCodes[j],&comparisons,table);
             for(int k = 0; k < data.size();k++)
             {
-                numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+                numCases += table.getItemFromHashKey(data[k]).getCaseCount();
             }
         }
         bench.setS2CompNumber(comparisons);
-        bench.setS1NumCases(numCases);
+        bench.setS2NumCases(numCases);
         bench.setEndTimeAsNow();
         bench.generateSearchRuntime();
         s1CompNumber[i] = bench.getS1CompNumber();
@@ -72,14 +73,14 @@ void execAVLBenchmark(string directory,int nData,Hash &table,string cityCode,vec
         compTime[i] = bench.getSearchRuntime();
         reader.exportBenchmarkDataToFile(bench,directory + "saida.txt");
     }
-    float averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
-    float averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
-    float averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
-    float averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
+    long int averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
+    long int averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
+    double averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
+    double averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
 
     ofstream outro(directory + "saida.txt",ios::app);
     outro << "MÉDIAS: Comparações S1,Comparações S2,Tempo de inserção,Tempo de busca" << endl;
-    outro << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
+    outro << fixed << setprecision(2) << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
     outro << endl;
     outro.close();
 }
@@ -88,8 +89,8 @@ void execBTreeBenchmark(int d,string directory,int nData,Hash &table,string city
 {
     ofstream intro(directory + "saida.txt",ios::app);
     DataReader reader;
-    float s1CompNumber[5];
-    float s2CompNumber[5];
+    long int s1CompNumber[5];
+    long int s2CompNumber[5];
     double insertionTime[5];
     double compTime[5];
 
@@ -121,20 +122,20 @@ void execBTreeBenchmark(int d,string directory,int nData,Hash &table,string city
         comparisons = 0;
         for(int j = 0;j < data.size();j++)
         {
-            numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+            numCases += table.getItemFromHashKey(data[j]).getCaseCount();
         }
         bench.setS1NumCases(numCases);
         numCases = 0;
         for(int j = 0;j < cityCodes.size();j++)
         {
-            data = tree.searchForTotalCases(cityCodes[i],&comparisons,table);
+            data = tree.searchForTotalCases(cityCodes[j],&comparisons,table);
             for(int k = 0; k < data.size();k++)
             {
-                numCases += table.getItemFromHashKey(data[i]).getCaseCount();
+                numCases += table.getItemFromHashKey(data[k]).getCaseCount();
             }
         }
         bench.setS2CompNumber(comparisons);
-        bench.setS1NumCases(numCases);
+        bench.setS2NumCases(numCases);
         bench.setEndTimeAsNow();
         bench.generateSearchRuntime();
         s1CompNumber[i] = bench.getS1CompNumber();
@@ -143,14 +144,14 @@ void execBTreeBenchmark(int d,string directory,int nData,Hash &table,string city
         compTime[i] = bench.getSearchRuntime();
         reader.exportBenchmarkDataToFile(bench,directory + "saida.txt");
     }
-    float averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
-    float averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
-    float averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
-    float averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
+    long int averageS1Comp = (s1CompNumber[0] + s1CompNumber[1] + s1CompNumber[2] + s1CompNumber[3] + s1CompNumber[4])/5;
+    long int averageS2Comp = (s2CompNumber[0] + s2CompNumber[1] + s2CompNumber[2] + s2CompNumber[3] + s2CompNumber[4])/5;
+    double averageInsertionTime = (insertionTime[0] + insertionTime[1] + insertionTime[2] + insertionTime[3] + insertionTime[4])/5;
+    double averageCompTime = (compTime[0] + compTime[1] + compTime[2] + compTime[3] + compTime[4])/5;
 
     ofstream outro(directory + "saida.txt",ios::app);
     outro << "MÉDIAS: Comparações S1,Comparações S2,Tempo de inserção,Tempo de busca" << endl;
-    outro << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
+    outro << fixed << setprecision(2) << averageS1Comp << "," << averageS2Comp << "," << averageInsertionTime << "," << averageCompTime << endl;
     outro << endl;
     outro.close();   
 }
@@ -323,7 +324,7 @@ int main(int argc, char const *argv[])
             cin >> cityCode;
 
             float coords[4];
-            cout << "Digite as coordenadas para a pesquisa por latitude e logitude (as cidades do Brasil estão entre [-999.998,-728.997]x[-29.04,-63.09])" << endl;
+            cout << "Digite as coordenadas para a pesquisa por latitude e logitude" << endl;
             cout << "Latitude X: ";
             cin >> coords[0];
             cout << "Longitude X: ";

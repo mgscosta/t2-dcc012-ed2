@@ -97,6 +97,6 @@ vector<HashItem*> DataReader::readPreProcessedCovidDataFromFile(string filename)
  void DataReader::exportBenchmarkDataToFile(Benchmark bench,string filename)
  {
     ofstream outfile(filename,ios::app);
-    outfile << bench.getS1NumCases() << "," << bench.getS2NumCases() << "," << bench.getS1CompNumber() << "," << bench.getS2CompNumber() << ","<< bench.getInsertionRuntime() << "," << bench.getSearchRuntime() << endl;
+    outfile << fixed << setprecision(2) << bench.getS1NumCases() << "," << bench.getS2NumCases() << "," << bench.getS1CompNumber() << "," << bench.getS2CompNumber() << ","<< bench.getInsertionRuntime() << "," << bench.getSearchRuntime() << endl;
     outfile.close();  
  }

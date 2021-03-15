@@ -12,12 +12,12 @@ Benchmark::Benchmark()
 
 Benchmark::~Benchmark(){}
 
-int Benchmark::getS1CompNumber()
+long int Benchmark::getS1CompNumber()
 {
     return this->s1CompNumber;
 }
 
-int Benchmark::getS2CompNumber()
+long int Benchmark::getS2CompNumber()
 {
     return this->s2CompNumber;
 }
@@ -99,7 +99,7 @@ int Benchmark::getS1NumCases()
     return this->s1NumCases;
 }
 
-void Benchmark::setS1NumCases(int numCases)
+void Benchmark::setS1NumCases(long int numCases)
 {
     this->s1NumCases = numCases;
 }
@@ -109,7 +109,7 @@ int Benchmark::getS2NumCases()
     return this->s2NumCases;
 }
 
-void Benchmark::setS2NumCases(int numCases)
+void Benchmark::setS2NumCases(long int numCases)
 {
     this->s2NumCases = numCases;
 }

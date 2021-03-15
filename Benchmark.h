@@ -12,8 +12,8 @@ class Benchmark
 {
 private:
     //Armazena o número de comparações
-    int s1CompNumber;
-    int s2CompNumber;
+    long int s1CompNumber;
+    long int s2CompNumber;
     //Armazena o ponto de partida do algoritmo de ordenação
     chrono::time_point<chrono::high_resolution_clock> startTime;
     //Armazena o ponto de término do algoritmo de ordenação
@@ -41,14 +41,14 @@ public:
      * 
      * @return int
     */
-    int getS1CompNumber();
+    long int getS1CompNumber();
     
     /**
      * Retorna o número de comparações
      * 
      * @return int
     */
-    int getS2CompNumber();
+    long int getS2CompNumber();
 
     /**
      * Retorna o ponto de partida do algoritmo
@@ -77,11 +77,11 @@ public:
 
     int getS1NumCases();
 
-    void setS1NumCases(int numCases);
+    void setS1NumCases(long int numCases);
 
     int getS2NumCases();
 
-    void setS2NumCases(int numCases);
+    void setS2NumCases(long int numCases);
 
     /**
      * Define/Redefine o número de comparações

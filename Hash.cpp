@@ -9,6 +9,7 @@ Hash::Hash()
   {
     this->items[i] = NULL;
   }
+  this->firstIndexFree = 0;
 }
 
 Hash::~Hash() {}
@@ -84,18 +85,37 @@ string Hash::search(string key)
 void Hash::handleColision(HashItem *item, int index)
 {
   //cout << "Handling colision..." << endl;
-  unsigned long i = this->size - 1;
 
-  while (this->items[i] != NULL)
+  if(this->items[this->firstIndexFree] != NULL)
   {
-    i--;
+    int i = this->firstIndexFree + 1;
+    while (this->items[i] != NULL && i < this->size)
+    {
+      i++;
+    }
+    this->firstIndexFree = i;
   }
 
-  this->items[index]->setNext(i);
+  this->items[index]->setNext(this->firstIndexFree);
  // cout << "INDICE DA COLISAO: " << index << endl;
-  this->items[i] = item;
+  this->items[this->firstIndexFree] = item;
  // cout << "NOVO INDICE POS COLISAO: " << i << endl;
-  this->items[i]->setNext(-1);
+  this->items[this->firstIndexFree]->setNext(-1);
+  incrementCount();
+
+  if(this->items[this->firstIndexFree + 1] != NULL )
+  {
+    int i = this->firstIndexFree + 2;
+    while (this->items[i] != NULL && i < this->size)
+    {
+      i++;
+    }
+    this->firstIndexFree = i; 
+  }
+  else
+  {
+    this->firstIndexFree = this->firstIndexFree + 1;
+  }
 }
 
 void Hash::print(bool archive,string filename/*= ""*/)

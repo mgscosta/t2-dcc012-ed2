@@ -18,6 +18,7 @@ private:
   int size;
   int count;
   vector<HashItem*> items;
+  int firstIndexFree;
 
 public:
   /**
