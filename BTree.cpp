@@ -55,7 +55,7 @@ void BTree::insert(int key,Hash &table)
             newNode->split(0,this->root);
 
             int i = 0;
-            if(newNode->getKey(0) < key)
+            if(table.getItemFromHashKey(newNode->getKey(0)).getCityCode() <= table.getItemFromHashKey(key).getCityCode() && table.getItemFromHashKey(newNode->getKey(0)).getDate() < table.getItemFromHashKey(key).getDate())
             {
                 i++;
             }

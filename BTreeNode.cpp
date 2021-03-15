@@ -148,7 +148,7 @@ void BTreeNode::split(int i,BTreeNode *node)
 
     node->setStoredKeys(this->minDeg - 1);
     
-    for(int j = this->storedKeys - 1; j >= i;j--)
+    for(int j = this->storedKeys; j >= i+1;j--)
     {
         this->children[j+1] = this->children[j];
     }
@@ -197,12 +197,17 @@ void BTreeNode::insert(int key,Hash &table)
 void BTreeNode::searchForTotalCases(string cityCode,long int *comparisons,vector<int> &keys,Hash &table)
 {
     int i = 0;
-    while (i < this->storedKeys && cityCode >= table.getItemFromHashKey(this->keys[i]).getCityCode().substr(0,6))
+    while (i < this->storedKeys)
     {
         *comparisons = *comparisons + 1;
         if(table.getItemFromHashKey(this->keys[i]).getCityCode().substr(0,6) == cityCode)
         {
             keys.push_back(this->keys[i]);
+        }
+        *comparisons = *comparisons + 1;
+        if(this->children[i] != NULL)
+        {
+            this->children[i]->searchForTotalCases(cityCode,comparisons,keys,table);
         }
         i++;
     }
